@@ -43,8 +43,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application){
     }
 
     fun clear() = scope.launch(Dispatchers.IO) {
-        deleteAllData(fullTaskList.value!!)
         taskDao.deleteAll()
+        deleteAllData(fullTaskList.value!!)
     }
 
     fun update(task : Task) = scope.launch(Dispatchers.IO){

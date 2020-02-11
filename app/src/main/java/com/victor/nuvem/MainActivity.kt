@@ -33,8 +33,14 @@ class MainActivity : AppCompatActivity() {
                 // Populando taskList
                 taskList = fullTaskList
 
+                // Adicionando novo item na API e UI
+                if(taskList.size > itemList.size){
+                    mainViewModel.postData(taskList.last())
+                    itemList.add(taskList.last().title)
+                }
+
                 // Populando lista caso esteja vazia
-                if(itemList.size == 0){
+                if(itemList.isEmpty()){
                     taskList.forEach {
                         itemList.add(it.title)
                         // CHECKBOX STATUS
@@ -42,10 +48,9 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
 
-                // Adicionando novo item na API e UI
-                if(taskList.size > itemList.size){
-                    mainViewModel.postData(taskList.last())
-                    itemList.add(taskList.last().title)
+                // Limpar lista
+                if(taskList.isEmpty()){
+                    itemList.clear()
                 }
 
                 // UPDATE UI
