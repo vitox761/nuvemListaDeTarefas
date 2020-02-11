@@ -33,18 +33,18 @@ class MainActivity : AppCompatActivity() {
                 // Populando taskList
                 taskList = fullTaskList
 
-                // Adicionando novo item na API e UI
-                if(taskList.size > itemList.size){
-                    mainViewModel.postData(taskList.last())
-                    itemList.add(taskList.last().title)
-                }
-
                 // Populando lista caso esteja vazia
                 if(itemList.isEmpty()){
                     taskList.forEach {
                         itemList.add(it.title)
                         // CHECKBOX STATUS
                         listView.setItemChecked(itemList.size - 1 ,it.complete)
+                    }
+                } else {
+                    // Adicionando novo item na API e UI
+                    if(taskList.size > itemList.size){
+                        mainViewModel.postData(taskList.last())
+                        itemList.add(taskList.last().title)
                     }
                 }
 
@@ -93,6 +93,7 @@ class MainActivity : AppCompatActivity() {
                 {
                     // Deletando tarefa da Room e API
                     mainViewModel.delete(taskList[item])
+                    itemList.removeAt(item)
                 }
                 item--
             }
